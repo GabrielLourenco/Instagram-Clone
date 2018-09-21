@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations'
 
 import { Imagem } from './imagem.model'
-import { timeout } from 'q';
 
 @Component({
   selector: 'app-banner',
@@ -39,7 +38,11 @@ export class BannerComponent implements OnInit {
   }
 
   public proximoSlide(): void {
-    // let img = this.imagens.find()
+    let i = this.imagens.findIndex(e => {return e.estado == 'visivel'})
+
+    this.imagens[(i == this.imagens.length-1) ? 0 : i + 1].estado = 'visivel'
+    this.imagens[i].estado = 'escondido'
+
     setTimeout(() => { this.proximoSlide() }, 3000);
   }
 
