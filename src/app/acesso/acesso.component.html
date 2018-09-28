@@ -3,10 +3,11 @@
     <div class="col-sm-6 d-flex justify-content-end" [@animacao-banner]="estadoAnimacao">
       <app-banner></app-banner>
     </div>
-
-    <div class="col-sm-6 d-flex justify-content-start" [@animacao-login]="estadoAnimacao">
-		  <app-login *ngIf="!exibeCadastro"></app-login>
-		  <app-cadastro *ngIf="exibeCadastro"></app-cadastro>
+    <div class="col-sm-6 d-flex justify-content-start" *ngIf="!exibeCadastro" [@animacao-login]="estadoAnimacao">
+		  <app-login (exibePainel)=exibePainel($event)></app-login>
+    </div>
+    <div class="col-sm-6 d-flex justify-content-start" *ngIf="exibeCadastro" [@animacao-login]="estadoAnimacao">
+		  <app-cadastro (exibePainel)=exibePainel($event)></app-cadastro>
     </div>
   </div>
 </div>
