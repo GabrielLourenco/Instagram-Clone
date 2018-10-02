@@ -28,6 +28,16 @@ import { trigger, state, style, transition, animate, keyframes } from '@angular/
             // style({offset: 0.9, opacity: 1, transform: 'translateY(-5px)'}),
             style({offset: 1, opacity: 1, transform: 'translate(0, 0)'}),
           ]))
+      ]),
+      state('erro', style({
+        transform: 'translateY(0px)'
+      })),
+      transition('criado => erro', [
+        animate('1s ease', keyframes([
+          style({offset: 0.4, transform: 'translateY(-5px)'}),
+          style({offset: 0.55, transform: 'translateY(10px)'}),
+          style({offset: 0.6, transform: 'translateY(-10px)'}),
+        ]))
       ])
     ])
   ]
@@ -44,6 +54,15 @@ export class AcessoComponent implements OnInit {
 
   public exibePainel(event: string): void {
     this.exibeCadastro = event === 'cadastro' ? true : false;
+  }
+
+  public treme(event: string): void {
+    this.estadoAnimacao = 'erro';
+  }
+
+  public mudaState(): void {
+    console.log('fim');
+    this.estadoAnimacao = 'criado';
   }
 
 }

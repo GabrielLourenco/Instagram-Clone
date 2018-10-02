@@ -1,4 +1,4 @@
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 
 import { Auth } from './../../services/auth.service';
@@ -11,10 +11,13 @@ import { Auth } from './../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   @Output() public exibePainel: EventEmitter<string> = new EventEmitter<string>();
+  @Output() public chameAtencao: EventEmitter<string> = new EventEmitter<string>();
+
+  public mensagemErro: string = '';
 
   public formulario: FormGroup = new FormGroup({
-    'email': new FormControl(null),
-    'senha': new FormControl(null)
+    'email': new FormControl('', [ Validators.required, Validators.email, Validators.minLength(5), Validators.maxLength(36) ]),
+    'senha': new FormControl('', [ Validators.required, Validators.minLength(6) ])
   });
 
   constructor(
@@ -25,11 +28,17 @@ export class LoginComponent implements OnInit {
   }
 
   public exibeCadastro(): void {
+    this.mensagemErro = '';
     this.exibePainel.emit('cadastro');
   }
 
   public autenticar(): void {
-    this.auth.autenticar(this.formulario.value.email, this.formulario.value.senha);
+    this.mensagemErro = '';
+    this.auth.autenticar(this.formulario.value.email, this.formulario.value.senha)
+      .catch((erro: Error) => {
+        this.mensagemErro = erro.message;
+        this.chameAtencao.emit('erro');
+    });
   }
 
 }
