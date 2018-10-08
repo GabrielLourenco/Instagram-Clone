@@ -8,6 +8,7 @@ import { ROUTES } from './app.routes';
 
 import { Auth } from './services/auth.service';
 import { AuthGuard } from './auth-guard.service';
+import { ProgressoService } from './services/progresso.service';
 
 
 import { AppComponent } from './app.component';
@@ -17,6 +18,7 @@ import { LoginComponent } from './acesso/login/login.component';
 import { CadastroComponent } from './acesso/cadastro/cadastro.component';
 import { HomeComponent } from './home/home.component';
 import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
+import { NovaPublicacaoComponent } from './home/nova-publicacao/nova-publicacao.component';
 
 
 @NgModule({
@@ -27,7 +29,8 @@ import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
     LoginComponent,
     CadastroComponent,
     HomeComponent,
-    PublicacoesComponent
+    PublicacoesComponent,
+    NovaPublicacaoComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,7 @@ import { PublicacoesComponent } from './home/publicacoes/publicacoes.component';
     ReactiveFormsModule,
     RouterModule.forRoot(ROUTES)
   ],
-  providers: [Auth, AuthGuard],
+  providers: [Auth, AuthGuard, ProgressoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
